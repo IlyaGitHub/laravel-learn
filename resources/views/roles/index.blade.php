@@ -6,29 +6,23 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Short description</th>
-                <th scope="col">Image</th>
-                <th scope="col">User</th>
+                <th scope="col">Name</th>
                 <th scope="col">Create at</th>
                 <th scope="col">Updated at</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($posts as $post)
+            @foreach($roles as $role)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $post->title }}</td>
-                    <td>{{ $post->short_description }}</td>
-                    <td><img class="w-50" src="{{ '/storage/post-images/' . $post->image }}"></td>
-                    <td>{{ $post->user->name }}</td>
-                    <td>{{ $post->created_at }}</td>
-                    <td>{{ $post->updated_at }}</td>
+                    <td>{{ $role->name }}</td>
+                    <td>{{ $role->created_at }}</td>
+                    <td>{{ $role->updated_at }}</td>
                     <td>
-                        <a href="{{ route('posts.edit', ['post' => $post->id]) }}" type="button"
+                        <a href="{{ route('roles.edit', ['role' => $role->id]) }}" type="button"
                            class="btn btn-success">Edit</a>
-                        <form action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="post"
+                        <form action="{{ route('roles.destroy', ['role' => $role->id]) }}" method="post"
                               class="delete-role-form">
                             @method('delete')
                             @csrf
