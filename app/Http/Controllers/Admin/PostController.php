@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Store\PostRequest;
+use App\Http\Requests\Update\PostRequest as UpdatePostRequest;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,7 +18,6 @@ class PostController extends Controller
      * Display a listing of the resource.
      *
      */
-
     public function index()
     {
         $posts = Post::with(['user'])->get();
@@ -38,16 +39,8 @@ class PostController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'title' => 'required',
-            'text' => 'required',
-            'short_description' => 'required|max:200',
-            'image' => 'required|image'
-        ]);
-
         $fileNameToStore = $this->uploadImage($request);
 
         Post::create([
@@ -88,16 +81,8 @@ class PostController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'title' => 'required',
-            'text' => 'required',
-            'short_description' => 'required|max:200',
-            'image' => 'sometimes|image'
-        ]);
-
         $post = Post::findOrFail($id);
         $image = $post->image;
 
