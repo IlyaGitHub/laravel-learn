@@ -21,7 +21,7 @@ class UserWriterSeeder extends Seeder
         User::create([
             'name' => 'Writer',
             'email' => 'writer@site.com',
-            'password' => Hash::make(('admin-admin')),
+            'password' => Hash::make('admin-admin'),
             'role_id' => $role->id
         ]);
     }
